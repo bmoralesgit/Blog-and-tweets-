@@ -2,11 +2,15 @@
 
 namespace App\Providers;
 
+use App\Exceptions\invalidEntrySlugException;
+use App\Models\Entry;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
+use League\CommonMark\Delimiter\Delimiter;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -46,6 +50,19 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));
+        });
+
+        Route::bind('entryByslug', function ($value){
+            $parts = explode('-',$value);
+            $id = end($parts);
+            $entry= Entry::findOrFail($id);
+            if($entry->slug.'-'.$entry->id===$value)
+            {
+               return $entry;
+            }else
+            {
+                throw new invalidEntrySlugException($entry);
+            }
         });
     }
 

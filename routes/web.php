@@ -26,7 +26,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/entries/create', [EntryController::class, 'create']);
 Route::post('/entries', [EntryController::class, 'store']);
 
-Route::get('/entries/{entry}', [GuestController::class, 'show']);
+Route::get('/entries/{entryByslug}', [GuestController::class, 'show']);
 Route::get('/entries/{entry}/edit', [EntryController::class, 'edit']);
 
 Route::put('/entries/{entry}', [EntryController::class, 'update']);
