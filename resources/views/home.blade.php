@@ -13,15 +13,18 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
-                    <p>My Entries: </p>
-                    <ul>
-                        @foreach ($entries as $entry )
-                            <li>
-                                <a href="{{$entry->getUrl() }}">{{$entry->title}}</a>
-                            </li>
-                        @endforeach
-                    </ul>
+                    @if ($entries->isEmpty())
+                        <p>You didn't publish any entry yet.</p>
+                    @else
+                        <p>My Entries: </p>
+                        <ul>
+                            @foreach ($entries as $entry )
+                                <li>
+                                    <a href="{{$entry->getUrl() }}">{{$entry->title}}</a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    @endif
                 </div>
             </div>
         </div>

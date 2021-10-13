@@ -34,4 +34,4 @@ Route::get('/entries/{entry}/edit', [EntryController::class, 'edit']);
 Route::put('/entries/{entry}', [EntryController::class, 'update']);
 //->middleware('can:update,entry');
 
-Route::get('/users/{user}', [UserController::class, 'show']);
+Route::get('/@{user}', [UserController::class, 'show']);
